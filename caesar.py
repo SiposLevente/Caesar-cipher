@@ -38,7 +38,7 @@ def encryptFile(FILE, offset):
     a = encrypt(a,offset)
     data.close()
 
-    data = open("Encrypted"+str(FILE),"w")
+    data = open("Enc"+str(FILE),"w")
     data.write(str(a))
     data.close()
 
@@ -51,7 +51,7 @@ def decryptFile(FILE, offset):
     a = decrypt(a,offset)
     data.close()
 
-    data = open("Decrypted"+str(FILE),"w")
+    data = open("Dec"+str(FILE),"w")
     data.write(str(a))
     data.close()
 
@@ -65,7 +65,7 @@ while True:
     print("1 - Encript string\n2 - Decript string\n\n3 - Encript file\n4 - Decript file\n\n5 - Change offset (current: %a)\n6 - Exit" %offset)
     print("\n\nIf choosing a file to decrypt/encrypt make sure that the file is in the same directory as the program!")
     a = input("Input a number: ")
-
+    os.system("clear")
     if(a == "1"):
         x = encrypt(input("Encrypt string output: "),offset)
         lastString = x
@@ -75,13 +75,25 @@ while True:
         lastString = x
         stringEdit = " decryption's"
     elif(a == "3"):
+        print("Available files in this directory: ")
+        os.system('ls')
         x = input("Encrypt file: ")
-        encryptFile(x,offset)
-        fileEdit = " encrypted as: Encrypted"+x
+        try:
+            encryptFile(x,offset)
+            fileEdit = " encrypted as: Enc"+x
+        except:
+            print("Something went wrong! Check if you typed the file name correctly!")
+            input("Press enter to continue!")
     elif(a == "4"):
+        print("Available files in this directory: ")
+        os.system('ls')
         x = input("Decrypt file: ")
-        decryptFile(x,offset)
-        fileEdit = " decrypted as: Decrypted"+x 
+        try:
+            decryptFile(x,offset)
+            fileEdit = " decrypted as: Dec"+x
+        except:
+            print("Something went wrong! Check if you typed the file name correctly!")
+            input("Press enter to continue!")
     elif(a == "5"):
         offset = int(input("Input new offset: "))
     elif(a == "6"):
